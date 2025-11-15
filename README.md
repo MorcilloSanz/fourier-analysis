@@ -1,7 +1,9 @@
 # Fourier-Analysis
-In this notebook, we perform a complete Fourier analysis of a time series. The main objective is to decompose the signal into its constituent frequency components using the Fourier Transform, identify and filter out unwanted frequencies.
+In this notebook, we carry out a full Fourier analysis of a time series. Our main objective is to decompose the signal into its constituent frequency components using the Fourier Transform, identify the frequencies of interest, and filter out the unwanted ones. We also propose a method to perform this process automatically.
 
 ![](img/img1.png)
+
+![](img/img2.png)
 
 ![](img/img3.png)
 
@@ -30,18 +32,3 @@ $$\psi(t) = \psi_1(t) + \psi_2(t) + \cdots + \psi_n(t) = \sum_i \psi_i(t)$$
 $$\sum_i \psi_i(t) = \frac{1}{2\pi} \left( \int_{\Omega_1} F(\omega) \, e^{i \omega t} \, d\omega + \int_{\Omega_2} F(\omega) \, e^{i \omega t} \, d\omega + \cdots + \int_{\Omega_n} F(\omega) \, e^{i \omega t} \, d\omega \right) = $$
 
 $$\psi(t) = \sum_i \psi_i(t) =  \frac{1}{2\pi} \int_{\bigcup_i \Omega_i} F(\omega) \, e^{i \omega t} \, d\omega$$
-
-## Finding the intervals of frequency automatically
-We can see that a frequency is relevant if there is a significant variation of the magnitude $A(\omega)$, so we can compute its derivative:
-
-$$A(\omega) = \left | F(\omega) \right | = \sqrt{F(\omega) \, F^*(\omega)} \quad \rightarrow \quad \frac{dA}{d\omega} = \Re \left \{ \frac{F^*(\omega)}{\left | F(\omega) \right |} \frac{dF}{d\omega} \right \}$$
-
-$$\frac{dF}{d\omega} = \frac{d}{d\omega} \int_{-\infty}^{\infty} f(t) \, e^{-i \omega t} \, dt = -i \int_{-\infty}^{\infty} t\, f(t) \, e^{-i \omega t} \, dt = -i \, \mathcal{F}\{ t \, f(t)\}$$
-
-A way of determine if a change is big enough is normalizing the derivative and comparing it with a threshold $\tau$:
-$$\frac{1}{H_{max}}\left |\frac{dA}{d\omega} \right | \ge \tau \quad \rightarrow \quad \left |\frac{dA}{d\omega} \right | \ge H_{max} \, \tau \quad \quad \tau \in [0, 1]$$
-Since $A(\omega)$ is always positive:
-$$H_{max} = \max(A(\omega), 0)$$
-Higher values of $\tau$ means less and bigger intervals (there are variations that are less than $\tau$ so those frequencies are considered in the same interval), whereas lower values of $\tau$ generates more and smaller intervals (almost every variation is greater than $\tau$ so it creates another interval).
-
-![](img/img2.png)
